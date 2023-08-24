@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Organisation = ({ setCurrentScreen }) => {
   const [org, setOrg] = useState("");
+  const _org = localStorage.getItem('org')
 
   const handleSave = () => {
     setCurrentScreen(3);
     localStorage.setItem("org", org);
   };
+
+  useEffect(() => {
+    if(_org) {
+      setOrg(_org)
+    }
+  }, [_org])
+  
 
   return (
     <div className="mt-[-450px]">
@@ -14,6 +22,7 @@ const Organisation = ({ setCurrentScreen }) => {
         <input
           type="text"
           className="org-input"
+          value={org}
           placeholder="Enter Organisation"
           onChange={(e) => setOrg(e.target.value)}
         />

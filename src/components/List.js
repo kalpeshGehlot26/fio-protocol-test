@@ -10,12 +10,21 @@ const List = ({ setCurrentScreen }) => {
     "EOS23056t",
   ]);
   const org = localStorage.getItem("org");
+  const _user = localStorage.getItem("user");
 
   const [currentOrg, setCurrentOrg] = useState("");
 
   useEffect(() => {
     setCurrentOrg(org);
   }, [org]);
+
+  useEffect(() => {
+    if(_user) {
+      const arr = [...items];
+      arr[0] = _user;
+      setItems(arr);
+    }
+  }, [_user])
 
   const handleSave = () => {
     setCurrentScreen(4);
@@ -28,6 +37,8 @@ const List = ({ setCurrentScreen }) => {
     from: { transform: "translateY(100px)" },
     trail: 200,
   });
+
+  console.log(items)
 
   return (
     <div className="mt-[-40px]">
@@ -58,7 +69,11 @@ const List = ({ setCurrentScreen }) => {
               <div className="font-bold text-[16px] text-white">
                 {index === 0 ? `${items[0]}@${currentOrg}` : items[index]}
               </div>
-              <div className="w-1/2 text-right">
+              <div className="w-1/2 text-right" onClick={() => {
+                const arr = [...items];
+                arr[0] = items[index]
+                setItems(arr);
+              }}>
                 <img className="w-[28px] ml-4 inline" src={edit} />
               </div>
             </animated.div>
