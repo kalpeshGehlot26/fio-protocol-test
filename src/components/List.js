@@ -111,7 +111,7 @@ const List = ({ setCurrentScreen }) => {
         </div>
 
         <div>
-          {debounceSearch?.length > 3 ? (
+          {debounceSearch?.length > 3 && mailformat.test(debounceSearch) ? (
             <button
               onClick={handleSave}
               className={`countinue-btn mx-auto hidden`}

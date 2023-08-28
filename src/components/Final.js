@@ -127,7 +127,7 @@ function TerminalLogs() {
           // Append character to one of the children
           let totalChars = parentText?.length;
           for (let i = 0; i < parentParagraph?.children?.length; i++) {
-            const child = parentParagraph?.children[i];
+            const child = parentParagraph?.children?.[i];
             if (currentCharIndex < totalChars + child?.text(data).length) {
               if (!updatedParagraphs[currentParagraphIndex]?.children[i]) {
                 updatedParagraphs[currentParagraphIndex].children[i] = {
@@ -207,7 +207,7 @@ function TerminalLogs() {
             {getLoaderOrCheckedIcon(paragraph, index)}
             <span style={getStyle(paragraph)}>{paragraph?.text}</span>
           </div>
-          {paragraph.children?.map((child, childIndex) => (
+          {paragraph?.children?.map((child, childIndex) => (
             <div key={childIndex} className="flex space-x-2 ml-4">
               {getLoaderOrCheckedIcon(child, childIndex)}
               { child?.icon ? <img src={child?.icon} className="w-4 h-4 mt-1 mix-blend-multiply	" /> : null}
