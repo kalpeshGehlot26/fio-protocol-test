@@ -20,6 +20,17 @@ const Screens = ({ currentScreen, ...rest }) => {
 
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
+  const orgTitle = localStorage.getItem('orgTitle')
+
+  const title = () => {
+    if(currentScreen === 3) {
+      return orgTitle
+    }
+    if(currentScreen === 4) {
+      return 'Hang tight'
+    }
+    return 'FIO Wallet Demo'
+  }
 
   return (
       <div className="container mx-auto ">
@@ -32,7 +43,7 @@ const App = () => {
           </div>
 
         <div className="!md:mt-[50px] mt-[20px]">
-          <div className="md:text-[60px] text-[40px] heading">{currentScreen === 4 ? 'Hang tight...' : 'FIO Wallet Demo'}</div>
+          <div className="md:text-[60px] text-[40px] heading">{title()}</div>
           <div className="sub-heading md:text-[22px] text-[18px]">
            {
             currentScreen === 4 ? '' : ' FIO wallet demo instruction selection content .. Can be up to two lines'
