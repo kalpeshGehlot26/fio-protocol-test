@@ -23,24 +23,24 @@ const Organisation = ({ setCurrentScreen }) => {
     <div className="mt-[-350px]">
       <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
-          Enter Organisation Name
+          Organisation
           <input
             type="text"
             className="org-input font-normal"
             value={orgTitle}
-            placeholder="Enter"
+            placeholder="Enter Organisation Name"
             onChange={(e) => setOrgTitle(e.target.value)}
           />
         </label>
       </div>
       <div className="flex justify-center mt-8 text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
-          Enter Domain Name
+          Domain
           <input
             type="text"
             className="org-input font-normal"
             value={org}
-            placeholder="Enter"
+            placeholder="Enter Domain Name"
             disabled={!orgTitle}
             onChange={(e) => setOrg(e.target.value)}
           />

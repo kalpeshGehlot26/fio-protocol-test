@@ -24,10 +24,10 @@ const App = () => {
 
   const title = () => {
     if(currentScreen === 3) {
-      return orgTitle
+      return `${orgTitle} Wallet`
     }
     if(currentScreen === 4) {
-      return 'Hang tight'
+      return `${orgTitle} Wallet: Diagnostics`
     }
     return 'FIO Wallet Demo'
   }

@@ -31,12 +31,21 @@ const List = ({ setCurrentScreen }) => {
   const _user = localStorage.getItem("user");
   const _email = localStorage.getItem("userName");
 
-  const initialSentences = ["Ox123 ... s223aS", "Abeog$/", "EOS23056t"];
-  const walletIcons = [EthLogo, PolygonLogo, EOSLogo];
+  const initialSentences = [
+    "Wallets",
+    "0x10E0271ec47d55511a047516f2a7301801d55eaB",
+    "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe",
+    "0xF2A1246e60a57c899DCD6e5166e246bc5cd7",
+  ];
+  const walletIcons = ["", EthLogo, PolygonLogo, EOSLogo];
 
   const [sentences, setSentences] = useState(initialSentences);
   const [userHandle, setUserHandle] = useState("");
   const [loadedSentences, setLoadedSentences] = useState([]);
+
+  const [walletLoading, setWalletLoading] = useState(false);
+
+  const [domainLoading, setDomainLoading] = useState(false)
 
   const debounceSearch = useDebounce(email, 800);
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -71,8 +80,12 @@ const List = ({ setCurrentScreen }) => {
   useEffect(() => {
     if (!startAnimation) return;
 
+    setWalletLoading(true);
+
     const typeSentence = (sentence, index) => {
       let charCount = 0;
+
+      setWalletLoading(true);
 
       const typeInterval = setInterval(() => {
         setDisplayedChars((prevChars) => {
@@ -80,17 +93,19 @@ const List = ({ setCurrentScreen }) => {
           newChars[index] = sentence.substring(0, charCount);
           return newChars;
         });
+
         charCount++;
 
         if (charCount > sentence.length) {
           clearInterval(typeInterval);
+          setWalletLoading(false);
           setLoadedSentences((prevState) => [...prevState, index]);
 
           if (index < sentences.length) {
             typeSentence(sentences[index], index + 1);
           }
         }
-      }, 100);
+      }, 20);
     };
 
     if (mailformat.test(debounceSearch)) {
@@ -113,12 +128,47 @@ const List = ({ setCurrentScreen }) => {
     setDisplayedChars([]); // Reset displayed characters
   };
 
+  const handleUpdateDomain = () => {
+    setDisplayedChars([]);
+    setDomainLoading(true)
+    setLoadedSentences([loadedSentences[0]]);
+    const typeSentence = (sentence, index) => {
+      let charCount = 0;
+
+      setWalletLoading(true);
+
+      const typeInterval = setInterval(() => {
+        setDisplayedChars((prevChars) => {
+          const newChars = [...prevChars];
+          newChars[index] = sentence.substring(0, charCount);
+          return newChars;
+        });
+
+        charCount++;
+
+        if (charCount > sentence.length) {
+          clearInterval(typeInterval);
+          setWalletLoading(false);
+          setDomainLoading(false)
+          setLoadedSentences((prevState) => [...prevState, index]);
+
+          if (index < sentences.length) {
+            typeSentence(sentences[index], index + 1);
+          }
+        }
+      }, 20);
+    };
+    const _userHandle = debounceSearch?.split("@")?.[0];
+
+    typeSentence(`${_userHandle}@${currentOrg}`, 0);
+  };
+
   return (
     <div className="mt-[-40px]">
       <div className="flex justify-center space-y-8 items-center flex-col w-full font-Comfortaa">
         <div className="mx-auto relative mt-[-120px] ">
           <input
-            placeholder="naga@metakeep.xyz"
+            placeholder="dave@metakeep.xyz"
             value={email}
             className="input-domain"
             onChange={handleEmailChange}
@@ -134,7 +184,18 @@ const List = ({ setCurrentScreen }) => {
           </span>
         )}
 
-        <div className="min-h-[200px] w-full">
+        <div className="min-h-[200px] w-full mx-auto ">
+          <div className="flex w-[450px] text-xl font-semibold break-words">
+            {loadedSentences.includes(0) && !domainLoading ? (
+              <img src={Checked} className="w-4 mr-2" alt="Checked icon" />
+            ) : startAnimation ? (
+              <div className="loader-org w-2 mt-1 mr-2"></div>
+            ) : null}
+            {startAnimation ? (
+              <div className="text-xl font-semibold">User Handle</div>
+            ) : null}
+          </div>
+
           {debounceSearch?.length > 3 &&
           mailformat.test(debounceSearch) &&
           startAnimation ? (
@@ -142,22 +203,14 @@ const List = ({ setCurrentScreen }) => {
               <div className="w-full text-center ">
                 <div className="sentence-first mb-8 mx-auto">
                   {loadedSentences.includes(0) ? (
-                    <img
-                      src={Checked}
-                      className="w-4 mr-2"
-                      alt="Checked icon"
-                    />
-                  ) : (
-                    <div className="loader-org w-2 mt-1 mr-2"></div>
-                  )}
-                  {loadedSentences.includes(0) ? (
                     <>
                       <input
                         value={userHandle}
                         onChange={handleInputChange}
                         className="editableSentence"
-                        style={{ width: `${userHandle?.length - 1}ch` }}
+                        style={{ width: `${userHandle?.length - 0.4}ch` }}
                         disabled={!loadedSentences?.includes(0)}
+                        onBlur={() => handleUpdateDomain()}
                       />
                       <div className="editableSentence">{`@${currentOrg}`}</div>
                     </>
@@ -169,24 +222,40 @@ const List = ({ setCurrentScreen }) => {
                 </div>
               </div>
               {loadedSentences.includes(0) &&
-                sentences.map((sentence, index) => (
-                  <div key={index} className="sentence my-2 text-[18px]">
-                    {loadedSentences.includes(index + 1) ? (
-                      <img src={Checked} className="w-4" alt="Checked icon" />
-                    ) : (
-                      (index === 0 || loadedSentences.includes(index)) && (
-                        <div className="loader-org w-2"></div>
-                      )
-                    )}
-                    {(index === 0 || loadedSentences.includes(index)) && (
-                      <img
-                        src={walletIcons[index]}
-                        className="w-4 h-4 mix-blend-multiply"
-                      />
-                    )}
-                    {displayedChars[index + 1] || ""}
-                  </div>
-                ))}
+                sentences.map((sentence, index) => {
+                  if (index === 0) {
+                    return (
+                      <div className="flex w-[450px] text-xl font-semibold break-words">
+                        {walletLoading ? (
+                          <div className="loader-org w-2 mt-1 mr-2"></div>
+                        ) : (
+                          <img
+                            src={Checked}
+                            className="w-4 mr-2"
+                            alt="Checked icon"
+                          />
+                        )}
+                        {displayedChars[index + 1] || ""}
+                      </div>
+                    );
+                  }
+                  return (
+                    <div
+                      key={index}
+                      className="sentence my-2 mr-[-3rem] text-[17px]"
+                    >
+                      {(index === 0 || loadedSentences.includes(index)) && (
+                        <img
+                          src={walletIcons[index]}
+                          className="w-4 h-4 mix-blend-multiply "
+                        />
+                      )}
+                      <div className="inline-block w-[450px] break-words">
+                        {displayedChars[index + 1] || ""}
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           ) : null}
         </div>
@@ -194,12 +263,12 @@ const List = ({ setCurrentScreen }) => {
         <div>
           {debounceSearch?.length > 3 &&
           mailformat.test(debounceSearch) &&
-          loadedSentences?.length === sentences?.length + 1 ? (
+          loadedSentences?.length >= sentences?.length + 1 ? (
             <button
               onClick={handleSave}
               className={`countinue-btn mx-auto hidden`}
             >
-              Next
+              Diagnostics
             </button>
           ) : null}
         </div>
