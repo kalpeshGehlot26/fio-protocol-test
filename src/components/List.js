@@ -124,43 +124,16 @@ const List = ({ setCurrentScreen }) => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     setStartAnimation(false);
-    setLoadedSentences([]); // Reset loaded sentences
-    setDisplayedChars([]); // Reset displayed characters
+    setLoadedSentences([]); 
+    setDisplayedChars([]);
   };
 
   const handleUpdateDomain = () => {
-    setDisplayedChars([]);
     setDomainLoading(true)
-    setLoadedSentences([loadedSentences[0]]);
-    const typeSentence = (sentence, index) => {
-      let charCount = 0;
-
-      setWalletLoading(true);
-
-      const typeInterval = setInterval(() => {
-        setDisplayedChars((prevChars) => {
-          const newChars = [...prevChars];
-          newChars[index] = sentence.substring(0, charCount);
-          return newChars;
-        });
-
-        charCount++;
-
-        if (charCount > sentence.length) {
-          clearInterval(typeInterval);
-          setWalletLoading(false);
-          setDomainLoading(false)
-          setLoadedSentences((prevState) => [...prevState, index]);
-
-          if (index < sentences.length) {
-            typeSentence(sentences[index], index + 1);
-          }
-        }
-      }, 20);
-    };
-    const _userHandle = debounceSearch?.split("@")?.[0];
-
-    typeSentence(`${_userHandle}@${currentOrg}`, 0);
+    setTimeout(() => {
+      setDomainLoading(false)
+    }, 1000)
+    setStartAnimation(true)
   };
 
   return (
