@@ -86,6 +86,7 @@ const List = ({ setCurrentScreen }) => {
       let charCount = 0;
 
       setWalletLoading(true);
+      setDomainLoading(true)
 
       const typeInterval = setInterval(() => {
         setDisplayedChars((prevChars) => {
@@ -99,6 +100,7 @@ const List = ({ setCurrentScreen }) => {
         if (charCount > sentence.length) {
           clearInterval(typeInterval);
           setWalletLoading(false);
+          setDomainLoading(false)
           setLoadedSentences((prevState) => [...prevState, index]);
 
           if (index < sentences.length) {
