@@ -41,34 +41,49 @@ function TerminalLogs() {
         {
           text: () => "EVM:",
           style: { color: "#252525 ", fontSize: "16px", fontWeight: "bold" },
-          icon: EthLogo
+          icon: EthLogo,
         },
         {
           text: () => "0x10E0271ec47d55511a047516f2a7301801d55eaB",
-          style: { color: "#252525", fontSize: "16px", marginLeft: "32px", marginBottom: "15px" },
+          style: {
+            color: "#252525",
+            fontSize: "16px",
+            marginLeft: "32px",
+            marginBottom: "15px",
+          },
         },
         {
-          text: () => "Sola:",
+          text: () => "Solana:",
           style: { color: "#252525", fontSize: "16px", fontWeight: "bold" },
-          icon: SolanaLogo
+          icon: SolanaLogo,
         },
         {
           text: () => "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH",
-          style: { color: "#252525", fontSize: "16px", marginLeft: "32px", marginBottom: "15px" },
+          style: {
+            color: "#252525",
+            fontSize: "16px",
+            marginLeft: "32px",
+            marginBottom: "15px",
+          },
         },
         {
           text: () => "Polygon:",
           style: { color: "#252525", fontSize: "16px", fontWeight: "bold" },
-          icon: PolygonLogo
+          icon: PolygonLogo,
         },
         {
           text: () => "0xF2A1246e60a57c899DCD6e5166e246bc5cd7E783",
-          style: { color: "#252525", fontSize: "16px", marginLeft: "32px", marginBottom: "15px" },
+          style: {
+            color: "#252525",
+            fontSize: "16px",
+            marginLeft: "32px",
+            marginBottom: "15px",
+          },
         },
         {
           text: () => "Fio:",
           style: { color: "#252525", fontSize: "16px", fontWeight: "bold" },
-          icon: FioLogo
+          icon: FioLogo,
         },
         {
           text: () => "0xF2A1246e60a57c899DCD6e5166e246bc5cd7E783",
@@ -102,7 +117,7 @@ function TerminalLogs() {
     }
 
     return "";
-  }
+  };
 
   useEffect(() => {
     const currentTextChar = getCurrentText();
@@ -197,7 +212,7 @@ function TerminalLogs() {
     } else {
       return <div className="w-[34px]"></div>;
     }
-  }
+  };
 
   return (
     <div className="px-6 mx-auto mb-22">
@@ -210,8 +225,18 @@ function TerminalLogs() {
           {paragraph?.children?.map((child, childIndex) => (
             <div key={childIndex} className="flex space-x-2 ml-4">
               {getLoaderOrCheckedIcon(child, childIndex)}
-              { child?.icon ? <img src={child?.icon} className="w-4 h-4 mt-1 mix-blend-multiply	" /> : null}
-              <span className="w-[250px] inline-block break-words sm:w-full" style={getStyle(child)}>{child?.text}</span>
+              {child?.icon ? (
+                <img
+                  src={child?.icon}
+                  className="w-4 h-4 mt-1 mix-blend-multiply	"
+                />
+              ) : null}
+              <span
+                className="w-[250px] inline-block break-words sm:w-full"
+                style={getStyle(child)}
+              >
+                {child?.text}
+              </span>
             </div>
           ))}
         </div>
