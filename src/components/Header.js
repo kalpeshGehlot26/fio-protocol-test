@@ -17,7 +17,7 @@ const Drawer = (props) => {
   return (
     <>
       <div
-        className={`${"overlay"} ${!open && "overlayHidden"} ${
+        className={`z-9 ${"overlay"} ${!open && "overlayHidden"} ${
           open && "overlayOpen"
         }`}
         onClick={onClose}

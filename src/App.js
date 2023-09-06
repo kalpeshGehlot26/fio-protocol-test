@@ -36,7 +36,7 @@ const App = () => {
       <div className="container mx-auto ">
         <Header />
           <div
-            className={`xl:ml-[115px]  ml-[10px] mt-8 z-10 relative return-btn ${currentScreen > 1 ? '' : "!invisible"}`}
+            className={`xl:ml-[115px]  ml-[10px] mt-8 z-1 cursor-pointer relative return-btn ${currentScreen > 1 ? '' : "!invisible"}`}
             onClick={() => setCurrentScreen(currentScreen - 1)}
           >
             {`<- Return`}
@@ -46,11 +46,11 @@ const App = () => {
           <div className="md:text-[60px] text-[40px] heading">{title()}</div>
           <div className="sub-heading md:text-[22px] text-[18px]">
            {
-            currentScreen === 4 ? '' : ' FIO wallet demo instruction selection content .. Can be up to two lines'
+            currentScreen === 4 ? '' : ' FIO wallet demo instruction selection content'
            }
           </div>
         </div>
-        <div class="h-screen-minus-40 w-full grid place-items-center">
+        <div class={`h-screen-minus-40 w-full grid xl:mt-[100px] px-4 ${currentScreen !== 4 ? 'mt-[50px]' : 'mt-0'}`}>
           <Screens
             currentScreen={currentScreen}
             setCurrentScreen={setCurrentScreen}

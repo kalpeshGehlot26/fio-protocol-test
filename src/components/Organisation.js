@@ -20,7 +20,7 @@ const Organisation = ({ setCurrentScreen }) => {
   }, [_org]);
 
   return (
-    <div className="mt-[-350px]">
+    <div className="">
       <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
           Organisation

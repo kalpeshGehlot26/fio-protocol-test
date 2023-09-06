@@ -12,7 +12,7 @@ const SelectMode = ({ setCurrentScreen }) => {
 
 
   return (
-    <div className="mt-[-200px]">
+    <div className="">
       <div className="flex justify-center text-white space-y-8 items-center flex-col w-full">
         <div className="flex p-4 px-6 md:w-[500px] w-full rounded-xl bg-[#262626] items-center justify-between">
           <div className="font-bold text-[20px] w-[200px]">Developer Mode</div>

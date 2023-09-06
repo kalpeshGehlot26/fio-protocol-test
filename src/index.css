@@ -10,17 +10,18 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   width: 100%;
 }
 
 .sentence {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 5px;
   animation: fadeIn 1s;
-  width: 100%;
+  width: fit-content;
+  margin-left: 20px;
 }
 
 .sentence-first, .editableSentence {
@@ -322,7 +323,7 @@ input:checked + .slider:before {
 }
 .overlayOpen {
   opacity: 1;
-  z-index: 0;
+  z-index: 2;
   visibility: visible;
 }
 .overlayHidden {

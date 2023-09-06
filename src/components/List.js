@@ -139,9 +139,9 @@ const List = ({ setCurrentScreen }) => {
   };
 
   return (
-    <div className="mt-[-40px]">
+    <div className="">
       <div className="flex justify-center space-y-8 items-center flex-col w-full font-Comfortaa">
-        <div className="mx-auto relative mt-[-120px] ">
+        <div className="mx-auto relative">
           <input
             placeholder="dave@metakeep.xyz"
             value={email}
@@ -159,8 +159,8 @@ const List = ({ setCurrentScreen }) => {
           </span>
         )}
 
-        <div className="min-h-[200px] w-full mx-auto ">
-          <div className="flex w-[450px] text-xl font-semibold break-words">
+        <div className="min-h-[200px] w-[350px] sm:w-[450px] mx-auto ">
+          <div className="flex w-full xl:[420px] text-xl font-semibold break-words">
             {loadedSentences.includes(0) && !domainLoading ? (
               <img src={Checked} className="w-4 mr-2" alt="Checked icon" />
             ) : startAnimation ? (
@@ -200,7 +200,7 @@ const List = ({ setCurrentScreen }) => {
                 sentences.map((sentence, index) => {
                   if (index === 0) {
                     return (
-                      <div className="flex w-[450px] text-xl font-semibold break-words">
+                      <div className="flex w-[380px] text-xl font-semibold break-words">
                         {walletLoading ? (
                           <div className="loader-org w-2 mt-1 mr-2"></div>
                         ) : (
@@ -222,10 +222,10 @@ const List = ({ setCurrentScreen }) => {
                       {(index === 0 || loadedSentences.includes(index)) && (
                         <img
                           src={walletIcons[index]}
-                          className="w-4 h-4 mix-blend-multiply "
+                          className="w-4 h-4 mix-blend-multiply mt-[4px]"
                         />
                       )}
-                      <div className="inline-block w-[450px] break-words">
+                      <div className="inline-block w-[300px] md:w-[420px] break-words">
                         {displayedChars[index + 1] || ""}
                       </div>
                     </div>

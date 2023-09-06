@@ -79,7 +79,7 @@ function TerminalLogs() {
     {
       text: (vars) => `Registering handle name ${vars.user}@${vars.orgName}...`,
       type: "heading",
-      style: { color: "#252525", fontSize: "25px" },
+      style: { color: "#252525", fontSize: "22px" },
     },
   ];
 
@@ -166,7 +166,7 @@ function TerminalLogs() {
           fontSize: "0.8em",
           fontWeight: "bold",
           ...paragraph.style,
-          marginTop: 50,
+          marginTop: 40,
         };
       default:
         return paragraph.style;
@@ -191,7 +191,7 @@ function TerminalLogs() {
             marginTop: getStyle(paragraph)?.marginTop + 5,
           }}
         >
-          <img src={Checked} alt="Checked icon" />
+          <img src={Checked} alt="Checked icon" className="!w-8 !h-8" style={{maxWidth: 'none'}} />
         </span>
       ) : null;
     } else {
@@ -200,7 +200,7 @@ function TerminalLogs() {
   }
 
   return (
-    <div className="!lg:mt-[-200px] lg:ml-32 mt-[-100px] px-6 lg:w-[700px]">
+    <div className="px-6 mx-auto mb-22">
       {currentParagraphs.map((paragraph, index) => (
         <div key={index}>
           <div className="flex space-x-2">
