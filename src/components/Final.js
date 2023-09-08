@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import Checked from "../assets/images/checked.svg";
 // import PolygonLogo from "../assets/images/checked.svg";
@@ -14,6 +14,9 @@ function TerminalLogs() {
 
   const org = localStorage.getItem("org");
   const user = localStorage.getItem("user");
+
+  const endOfLogsRef = useRef(null); // New ref for the end of logs
+
 
   const [data, setData] = useState({
     orgName: "",
@@ -166,6 +169,9 @@ function TerminalLogs() {
       setCurrentCharIndex(0);
       setCurrentParagraphIndex(currentParagraphIndex + 1);
     }
+    if (endOfLogsRef.current) {
+      endOfLogsRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
   }, [
     currentCharIndex,
     currentParagraphIndex,
@@ -241,6 +247,7 @@ function TerminalLogs() {
           ))}
         </div>
       ))}
+       <div ref={endOfLogsRef}></div>
     </div>
   );
 }
