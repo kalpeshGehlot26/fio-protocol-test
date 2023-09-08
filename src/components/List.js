@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Checked from "../assets/images/checked.svg";
 import EthLogo from "../assets/images/ethereum-logo.jpg";
 import PolygonLogo from "../assets/images/polygon.png";
@@ -45,10 +45,13 @@ const List = ({ setCurrentScreen }) => {
 
   const [walletLoading, setWalletLoading] = useState(false);
 
-  const [domainLoading, setDomainLoading] = useState(false)
+  const [domainLoading, setDomainLoading] = useState(false);
 
   const debounceSearch = useDebounce(email, 800);
   const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const currentSentenceRef = useRef(null);
+
 
   useEffect(() => {
     setCurrentOrg(org);
@@ -77,6 +80,14 @@ const List = ({ setCurrentScreen }) => {
     }
   };
 
+  const isElementOutOfView = (el) => {
+    const rect = el.getBoundingClientRect();
+    return (rect.bottom > window.innerHeight);
+};
+
+
+
+
   useEffect(() => {
     if (!startAnimation) return;
 
@@ -86,7 +97,7 @@ const List = ({ setCurrentScreen }) => {
       let charCount = 0;
 
       setWalletLoading(true);
-      setDomainLoading(true)
+      setDomainLoading(true);
 
       const typeInterval = setInterval(() => {
         setDisplayedChars((prevChars) => {
@@ -95,17 +106,23 @@ const List = ({ setCurrentScreen }) => {
           return newChars;
         });
 
+
         charCount++;
 
+       
         if (charCount > sentence.length) {
           clearInterval(typeInterval);
           setWalletLoading(false);
-          setDomainLoading(false)
+          setDomainLoading(false);
           setLoadedSentences((prevState) => [...prevState, index]);
 
           if (index < sentences.length) {
             typeSentence(sentences[index], index + 1);
           }
+
+          if (currentSentenceRef.current && isElementOutOfView(currentSentenceRef.current)) {
+            currentSentenceRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
         }
       }, 20);
     };
@@ -126,17 +143,23 @@ const List = ({ setCurrentScreen }) => {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     setStartAnimation(false);
-    setLoadedSentences([]); 
+    setLoadedSentences([]);
     setDisplayedChars([]);
   };
 
   const handleUpdateDomain = () => {
-    setDomainLoading(true)
+    setDomainLoading(true);
     setTimeout(() => {
-      setDomainLoading(false)
-    }, 1000)
-    setStartAnimation(true)
+      setDomainLoading(false);
+    }, 1000);
+    setStartAnimation(true);
   };
+
+  const spanRef = useRef(null);
+
+  const inputWidth = spanRef.current
+    ? spanRef.current.offsetWidth + 10
+    : "auto";
 
   return (
     <div className="">
@@ -179,15 +202,31 @@ const List = ({ setCurrentScreen }) => {
                 <div className="sentence-first mb-8 mx-auto">
                   {loadedSentences.includes(0) ? (
                     <>
-                      <input
-                        value={userHandle}
-                        onChange={handleInputChange}
-                        className="editableSentence"
-                        style={{ width: `${userHandle?.length - 0.4}ch` }}
-                        disabled={!loadedSentences?.includes(0)}
-                        onBlur={() => handleUpdateDomain()}
-                      />
-                      <div className="editableSentence">{`@${currentOrg}`}</div>
+                      <div style={{ position: "relative" }}>
+                        <input
+                          value={userHandle}
+                          onChange={handleInputChange}
+                          className="editableSentence p-0"
+                          style={{ width: inputWidth }}
+                          disabled={!loadedSentences?.includes(0)}
+                          onBlur={() => handleUpdateDomain()}
+                        />
+                        <span
+                          ref={spanRef}
+                          style={{
+                            position: "absolute",
+                            top: -9999,
+                            left: -9999,
+                            whiteSpace: "pre",
+                            fontFamily: "inherit",
+                            fontSize: "inherit",
+                            letterSpacing: "inherit",
+                          }}
+                        >
+                          {userHandle}
+                        </span>
+                      </div>
+                      <div className="editableSentence ml-[-2px]">{`@${currentOrg}`}</div>
                     </>
                   ) : (
                     <div className="editableSentence">
@@ -217,6 +256,7 @@ const List = ({ setCurrentScreen }) => {
                   return (
                     <div
                       key={index}
+                      ref={currentSentenceRef}
                       className="sentence my-2 mr-[-3rem] text-[17px]"
                     >
                       {(index === 0 || loadedSentences.includes(index)) && (
