@@ -23,12 +23,12 @@ const Organisation = ({ setCurrentScreen }) => {
     <div className="">
       <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
-          Organisation
+          Organization
           <input
             type="text"
             className="org-input font-normal"
             value={orgTitle}
-            placeholder="Enter Organisation Name"
+            placeholder="Enter Organization Name"
             onChange={(e) => setOrgTitle(e.target.value)}
           />
         </label>

@@ -230,7 +230,7 @@ const List = ({ setCurrentScreen }) => {
                     </>
                   ) : (
                     <div className="editableSentence">
-                      {displayedChars[0] || ""}
+                      {displayedChars[0]?.toLowerCase() || ""}
                     </div>
                   )}
                 </div>
@@ -259,14 +259,14 @@ const List = ({ setCurrentScreen }) => {
                       ref={currentSentenceRef}
                       className="sentence my-2 mr-[-3rem] text-[17px]"
                     >
-                      {(index === 0 || loadedSentences.includes(index)) && (
+                      {(index === 0 || loadedSentences?.includes(index)) && (
                         <img
                           src={walletIcons[index]}
                           className="w-4 h-4 mix-blend-multiply mt-[4px]"
                         />
                       )}
                       <div className="inline-block w-[300px] md:w-[420px] break-words">
-                        {displayedChars[index + 1] || ""}
+                        {displayedChars[index + 1]?.toLowerCase() || ""}
                       </div>
                     </div>
                   );

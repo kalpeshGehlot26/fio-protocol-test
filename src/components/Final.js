@@ -17,7 +17,6 @@ function TerminalLogs() {
 
   const endOfLogsRef = useRef(null); // New ref for the end of logs
 
-
   const [data, setData] = useState({
     orgName: "",
     user: "",
@@ -122,6 +121,17 @@ function TerminalLogs() {
     return "";
   };
 
+  const isInViewport = (element) => {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
+
   useEffect(() => {
     const currentTextChar = getCurrentText();
     if (currentParagraphIndex < paragraphs?.length && currentTextChar) {
@@ -169,9 +179,9 @@ function TerminalLogs() {
       setCurrentCharIndex(0);
       setCurrentParagraphIndex(currentParagraphIndex + 1);
     }
-    if (endOfLogsRef.current) {
-      endOfLogsRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
+    if (endOfLogsRef.current && !isInViewport(endOfLogsRef.current)) {
+      endOfLogsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [
     currentCharIndex,
     currentParagraphIndex,
@@ -212,7 +222,12 @@ function TerminalLogs() {
             marginTop: getStyle(paragraph)?.marginTop + 5,
           }}
         >
-          <img src={Checked} alt="Checked icon" className="!w-8 !h-8" style={{maxWidth: 'none'}} />
+          <img
+            src={Checked}
+            alt="Checked icon"
+            className="!w-8 !h-8"
+            style={{ maxWidth: "none" }}
+          />
         </span>
       ) : null;
     } else {
@@ -241,13 +256,13 @@ function TerminalLogs() {
                 className="w-[250px] inline-block break-words sm:w-full"
                 style={getStyle(child)}
               >
-                {child?.text}
+                {child?.text?.toLowerCase()}
               </span>
             </div>
           ))}
         </div>
       ))}
-       <div ref={endOfLogsRef}></div>
+      <div ref={endOfLogsRef}></div>
     </div>
   );
 }
