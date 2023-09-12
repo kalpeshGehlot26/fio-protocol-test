@@ -86,6 +86,18 @@ const List = ({ setCurrentScreen }) => {
 };
 
 
+const isInViewport = (element) => {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+};
+
+
 
 
   useEffect(() => {
@@ -120,7 +132,7 @@ const List = ({ setCurrentScreen }) => {
             typeSentence(sentences[index], index + 1);
           }
 
-          if (currentSentenceRef.current && isElementOutOfView(currentSentenceRef.current)) {
+          if (currentSentenceRef.current && isInViewport(currentSentenceRef.current)) {
             currentSentenceRef.current.scrollIntoView({ behavior: 'smooth' });
         }
         }
@@ -226,7 +238,7 @@ const List = ({ setCurrentScreen }) => {
                           {userHandle}
                         </span>
                       </div>
-                      <div className="editableSentence ml-[-2px]">{`@${currentOrg}`}</div>
+                      <div className="editableSentence ml-[-2px]">{`@${currentOrg?.toLowerCase()}`}</div>
                     </>
                   ) : (
                     <div className="editableSentence">
