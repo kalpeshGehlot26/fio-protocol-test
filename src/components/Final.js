@@ -24,14 +24,14 @@ function TerminalLogs() {
 
   useEffect(() => {
     setData({
-      orgName: org,
+      orgName: org?.toLowerCase(),
       user: user,
     });
   }, [org, user]);
 
   const paragraphs = [
     {
-      text: (vars) => `Registering domain name: ${vars.orgName}...`,
+      text: (vars) => `Registering domain name: ${vars.orgName?.toLowerCase()}...`,
       type: "heading",
       style: { color: "#252525", fontSize: "22px" },
     },
@@ -94,7 +94,7 @@ function TerminalLogs() {
       ],
     },
     {
-      text: (vars) => `Registering handle name ${vars.user}@${vars.orgName}...`,
+      text: (vars) => `Registering handle name ${vars.user}@${vars.orgName?.toLowerCase()}...`,
       type: "heading",
       style: { color: "#252525", fontSize: "22px" },
     },
