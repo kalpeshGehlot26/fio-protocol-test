@@ -50,7 +50,7 @@ const App = () => {
            }
           </div>
         </div>
-        <div class={`h-screen-minus-40 w-full grid xl:mt-[100px] px-4 ${currentScreen !== 4 ? 'mt-[50px]' : 'mt-0'}`}>
+        <div class={` w-full grid xl:mt-[100px] px-4 ${currentScreen !== 4 ? 'mt-[50px]' : 'mt-0'}`}>
           <Screens
             currentScreen={currentScreen}
             setCurrentScreen={setCurrentScreen}
