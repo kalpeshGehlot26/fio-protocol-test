@@ -3,6 +3,7 @@ import Checked from "../assets/images/checked.svg";
 import EthLogo from "../assets/images/ethereum-logo.jpg";
 import PolygonLogo from "../assets/images/polygon.png";
 import EOSLogo from "../assets/images/eos-coin.png";
+import WaxChain from "../assets/images/wax-chain.png";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -36,8 +37,9 @@ const List = ({ setCurrentScreen }) => {
     "0x10E0271ec47d55511a047516f2a7301801d55eaB",
     "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe",
     "0xF2A1246e60a57c899DCD6e5166e246bc5cd7",
+    "7sgsfgcABqLq46Es1jh9211a047512SmxELLLsdfHe"
   ];
-  const walletIcons = ["", EthLogo, PolygonLogo, EOSLogo];
+  const walletIcons = ["", EthLogo, PolygonLogo, EOSLogo, WaxChain];
 
   const [sentences, setSentences] = useState(initialSentences);
   const [userHandle, setUserHandle] = useState("");
@@ -48,7 +50,8 @@ const List = ({ setCurrentScreen }) => {
   const [domainLoading, setDomainLoading] = useState(false);
 
   const debounceSearch = useDebounce(email, 800);
-  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const mailformat = /.{3,}/  ;
+
 
   const currentSentenceRef = useRef(null);
 
@@ -147,7 +150,7 @@ const isInViewport = (element) => {
   }, [sentences, debounceSearch, currentOrg, startAnimation]);
 
   const handleSave = () => {
-    setCurrentScreen(4);
+    setCurrentScreen(5);
     localStorage.setItem("user", `${userHandle}`);
     localStorage.setItem("userName", email);
   };

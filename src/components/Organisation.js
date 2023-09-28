@@ -7,7 +7,7 @@ const Organisation = ({ setCurrentScreen }) => {
   const _orgTitle = localStorage.getItem("orgTitle");
 
   const handleSave = () => {
-    setCurrentScreen(3);
+    setCurrentScreen(4);
     localStorage.setItem("org", org);
     localStorage.setItem("orgTitle", orgTitle);
   };
@@ -21,9 +21,9 @@ const Organisation = ({ setCurrentScreen }) => {
 
   return (
     <div className="">
-      <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
+      {/* <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
-          Organization
+          Handle
           <input
             type="text"
             className="org-input font-normal"
@@ -32,7 +32,7 @@ const Organisation = ({ setCurrentScreen }) => {
             onChange={(e) => setOrgTitle(e.target.value)}
           />
         </label>
-      </div>
+      </div> */}
       <div className="flex justify-center mt-8 text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
           Domain
@@ -41,7 +41,6 @@ const Organisation = ({ setCurrentScreen }) => {
             className="org-input font-normal"
             value={org}
             placeholder="Enter Domain Name"
-            disabled={!orgTitle}
             onChange={(e) => setOrg(e.target.value)}
           />
         </label>

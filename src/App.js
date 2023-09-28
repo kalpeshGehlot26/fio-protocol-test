@@ -4,13 +4,15 @@ import Organisation from "./components/Organisation";
 import SelectMode from "./components/SelectMode";
 import List from "./components/List";
 import Final from "./components/Final";
+import SignUp from "./components/Signup";
 
 const Screens = ({ currentScreen, ...rest }) => {
   const screenObj = {
     1: <SelectMode {...rest} />,
-    2: <Organisation {...rest} />,
-    3: <List {...rest} />,
-    4: <Final {...rest} />,
+    2: <SignUp {...rest}/>,
+    3: <Organisation {...rest} />,
+    4: <List {...rest} />,
+    5: <Final {...rest} />,
   };
 
   if (screenObj[currentScreen]) {
@@ -23,10 +25,10 @@ const App = () => {
   const orgTitle = localStorage.getItem('orgTitle')
 
   const title = () => {
-    if(currentScreen === 3) {
+    if(currentScreen === 4) {
       return `${orgTitle} Wallet`
     }
-    if(currentScreen === 4) {
+    if(currentScreen === 5) {
       return `${orgTitle} Wallet: Diagnostics`
     }
     return 'FIO Wallet Demo'

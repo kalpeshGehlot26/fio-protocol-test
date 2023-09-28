@@ -6,6 +6,7 @@ import EthLogo from "../assets/images/ethereum-logo.jpg";
 import PolygonLogo from "../assets/images/polygon.png";
 import SolanaLogo from "../assets/images/solana-logo.png";
 import FioLogo from "../assets/images/fiologo-1.png";
+import WaxChain from "../assets/images/wax-chain.png";
 
 function TerminalLogs() {
   const [currentParagraphs, setCurrentParagraphs] = useState([]);
@@ -75,6 +76,20 @@ function TerminalLogs() {
         },
         {
           text: () => "0xF2A1246e60a57c899DCD6e5166e246bc5cd7E783",
+          style: {
+            color: "#252525",
+            fontSize: "16px",
+            marginLeft: "32px",
+            marginBottom: "15px",
+          },
+        },
+        {
+          text: () => "Wax:",
+          style: { color: "#252525", fontSize: "16px", fontWeight: "bold" },
+          icon: WaxChain,
+        },
+        {
+          text: () => "0xdfdA12sdlfjhKdfdKNJdfNJ166e246bc5cd7E783",
           style: {
             color: "#252525",
             fontSize: "16px",
