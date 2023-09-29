@@ -21,18 +21,18 @@ const Organisation = ({ setCurrentScreen }) => {
 
   return (
     <div className="">
-      {/* <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
+      <div className=" flex justify-center text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
           Handle
           <input
             type="text"
             className="org-input font-normal"
             value={orgTitle}
-            placeholder="Enter Organization Name"
+            placeholder="Enter Handle Name"
             onChange={(e) => setOrgTitle(e.target.value)}
           />
         </label>
-      </div> */}
+      </div>
       <div className="flex justify-center mt-8 text-white space-y-8 items-center flex-col w-full">
         <label className="text-[#262626] font-bold">
           Domain

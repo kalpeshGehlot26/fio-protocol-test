@@ -6,7 +6,7 @@ import EthLogo from "../assets/images/ethereum-logo.jpg";
 import PolygonLogo from "../assets/images/polygon.png";
 import SolanaLogo from "../assets/images/solana-logo.png";
 import FioLogo from "../assets/images/fiologo-1.png";
-import WaxChain from "../assets/images/wax-chain.png";
+import WaxChain from "../assets/images/wax-chain-v.png";
 
 function TerminalLogs() {
   const [currentParagraphs, setCurrentParagraphs] = useState([]);

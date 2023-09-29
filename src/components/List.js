@@ -3,7 +3,7 @@ import Checked from "../assets/images/checked.svg";
 import EthLogo from "../assets/images/ethereum-logo.jpg";
 import PolygonLogo from "../assets/images/polygon.png";
 import EOSLogo from "../assets/images/eos-coin.png";
-import WaxChain from "../assets/images/wax-chain.png";
+import WaxChain from "../assets/images/wax-chain-v.png";
 
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
