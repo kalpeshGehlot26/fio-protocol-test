@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { animated, useSpring } from "@react-spring/web";
 import Checked from "../assets/images/checked.svg";
 // import PolygonLogo from "../assets/images/checked.svg";
 import EthLogo from "../assets/images/ethereum-logo.jpg";
@@ -8,13 +7,13 @@ import SolanaLogo from "../assets/images/solana-logo.png";
 import FioLogo from "../assets/images/fiologo-1.png";
 import WaxChain from "../assets/images/wax-chain-v.png";
 
-function TerminalLogs() {
+function Diagnostics() {
   const [currentParagraphs, setCurrentParagraphs] = useState([]);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [currentParagraphIndex, setCurrentParagraphIndex] = useState(0);
 
-  const org = localStorage.getItem("org");
-  const user = localStorage.getItem("user");
+  const org = localStorage.getItem("domain");
+  const user = localStorage.getItem("handle");
 
   const endOfLogsRef = useRef(null); // New ref for the end of logs
 
@@ -282,4 +281,4 @@ function TerminalLogs() {
   );
 }
 
-export default TerminalLogs;
+export default Diagnostics;

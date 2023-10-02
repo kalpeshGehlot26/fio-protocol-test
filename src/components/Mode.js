@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 
 
 
-const SelectMode = ({ setCurrentScreen }) => {
+const Mode = ({ setCurrentScreen }) => {
   const [mode, setMode] = useState("");
 
   const handleMode = (e) => {
@@ -58,4 +58,4 @@ const SelectMode = ({ setCurrentScreen }) => {
   );
 };
 
-export default SelectMode;
+export default Mode;

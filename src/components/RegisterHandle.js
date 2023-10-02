@@ -21,23 +21,22 @@ const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
-const List = ({ setCurrentScreen }) => {
+const RegisterHandle = ({ setCurrentScreen }) => {
   const [email, setEmail] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [startAnimation, setStartAnimation] = useState(false);
   const [currentOrg, setCurrentOrg] = useState("");
   const [displayedChars, setDisplayedChars] = useState([]);
 
-  const org = localStorage.getItem("org");
-  const _user = localStorage.getItem("user");
-  const _email = localStorage.getItem("userName");
+  const domain = localStorage.getItem("domain");
+  const handle = localStorage.getItem("handle");
 
   const initialSentences = [
     "Wallets",
     "0x10E0271ec47d55511a047516f2a7301801d55eaB",
     "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe",
     "0xF2A1246e60a57c899DCD6e5166e246bc5cd7",
-    "7sgsfgcABqLq46Es1jh9211a047512SmxELLLsdfHe"
+    "7sgsfgcABqLq46Es1jh9211a047512SmxELLLsdfHe",
   ];
   const walletIcons = ["", EthLogo, PolygonLogo, EOSLogo, WaxChain];
 
@@ -50,25 +49,21 @@ const List = ({ setCurrentScreen }) => {
   const [domainLoading, setDomainLoading] = useState(false);
 
   const debounceSearch = useDebounce(email, 800);
-  const mailformat = /.{3,}/  ;
-
+  const mailformat = /.{3,}/;
 
   const currentSentenceRef = useRef(null);
 
+  useEffect(() => {
+    setCurrentOrg(domain);
+  }, [domain]);
 
   useEffect(() => {
-    setCurrentOrg(org);
-  }, [org]);
-
-  useEffect(() => {
-    if (_user) {
-      setUserHandle(_user);
+    if (handle) {
+      // setUserHandle(_user);
       setStartAnimation(true);
+      setEmail(handle);
     }
-    if (_email) {
-      setEmail(_email);
-    }
-  }, [_user, _email]);
+  }, [handle]);
 
   const handleInputChange = (e) => {
     setUserHandle(e.target.value);
@@ -83,25 +78,17 @@ const List = ({ setCurrentScreen }) => {
     }
   };
 
-  const isElementOutOfView = (el) => {
-    const rect = el.getBoundingClientRect();
-    return (rect.bottom > window.innerHeight);
-};
 
-
-const isInViewport = (element) => {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-};
-
-
-
+  const isInViewport = (element) => {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
 
   useEffect(() => {
     if (!startAnimation) return;
@@ -121,10 +108,8 @@ const isInViewport = (element) => {
           return newChars;
         });
 
-
         charCount++;
 
-       
         if (charCount > sentence.length) {
           clearInterval(typeInterval);
           setWalletLoading(false);
@@ -135,9 +120,12 @@ const isInViewport = (element) => {
             typeSentence(sentences[index], index + 1);
           }
 
-          if (currentSentenceRef.current && isInViewport(currentSentenceRef.current)) {
-            currentSentenceRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+          if (
+            currentSentenceRef.current &&
+            isInViewport(currentSentenceRef.current)
+          ) {
+            currentSentenceRef.current.scrollIntoView({ behavior: "smooth" });
+          }
         }
       }, 20);
     };
@@ -179,7 +167,7 @@ const isInViewport = (element) => {
   return (
     <div className="">
       <div className="flex justify-center space-y-8 items-center flex-col w-full font-Comfortaa">
-        <div className="mx-auto relative">
+        {/* <div className="mx-auto relative">
           <input
             placeholder="dave@metakeep.xyz"
             value={email}
@@ -195,7 +183,7 @@ const isInViewport = (element) => {
           <span style={{ color: "red", display: "block", marginTop: "0px" }}>
             Invalid email address.
           </span>
-        )}
+        )} */}
 
         <div className="min-h-[200px] w-[350px] sm:w-[450px] mx-auto ">
           <div className="flex w-full xl:[420px] text-xl font-semibold break-words">
@@ -205,7 +193,7 @@ const isInViewport = (element) => {
               <div className="loader-org w-2 mt-1 mr-2"></div>
             ) : null}
             {startAnimation ? (
-              <div className="text-xl font-semibold">User Handle</div>
+              <div className="text-xl font-semibold">Handle Name</div>
             ) : null}
           </div>
 
@@ -218,20 +206,18 @@ const isInViewport = (element) => {
                   {loadedSentences.includes(0) ? (
                     <>
                       <div style={{ position: "relative" }}>
-                        <input
+                        {/* <input
                           value={userHandle}
                           onChange={handleInputChange}
                           className="editableSentence p-0"
                           style={{ width: inputWidth }}
                           disabled={!loadedSentences?.includes(0)}
                           onBlur={() => handleUpdateDomain()}
-                        />
+                        /> */}
                         <span
                           ref={spanRef}
                           style={{
-                            position: "absolute",
-                            top: -9999,
-                            left: -9999,
+                            marginRight: "2px",
                             whiteSpace: "pre",
                             fontFamily: "inherit",
                             fontSize: "inherit",
@@ -241,7 +227,7 @@ const isInViewport = (element) => {
                           {userHandle}
                         </span>
                       </div>
-                      <div className="editableSentence ml-[-2px]">{`@${currentOrg?.toLowerCase()}`}</div>
+                      <div className=" ml-[-2px]">{`@${currentOrg?.toLowerCase()}`}</div>
                     </>
                   ) : (
                     <div className="editableSentence">
@@ -307,4 +293,4 @@ const isInViewport = (element) => {
   );
 };
 
-export default List;
+export default RegisterHandle;

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
-import Organisation from "./components/Organisation";
-import SelectMode from "./components/SelectMode";
-import List from "./components/List";
-import Final from "./components/Final";
+import Domain from "./components/Domain";
+import Mode from "./components/Mode";
+import RegisterHandle from "./components/RegisterHandle";
+import Diagnostics from "./components/Diagnostics";
 import SignUp from "./components/Signup";
 
 const Screens = ({ currentScreen, ...rest }) => {
   const screenObj = {
-    1: <SelectMode {...rest} />,
+    1: <Mode {...rest} />,
     2: <SignUp {...rest}/>,
-    3: <Organisation {...rest} />,
-    4: <List {...rest} />,
-    5: <Final {...rest} />,
+    3: <Domain {...rest} />,
+    4: <RegisterHandle {...rest} />,
+    5: <Diagnostics {...rest} />,
   };
 
   if (screenObj[currentScreen]) {
@@ -22,7 +22,7 @@ const Screens = ({ currentScreen, ...rest }) => {
 
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState(1);
-  const orgTitle = localStorage.getItem('orgTitle')
+  const orgTitle = localStorage.getItem('domain')
 
   const title = () => {
     if(currentScreen === 4) {
